@@ -1,3 +1,3 @@
 # googly-eyes
 
-[Live demo](https://u5ogf.csb.app/)
+[Live demo](9bnxw.csb.app/)
