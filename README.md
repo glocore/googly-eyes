@@ -1,3 +1,5 @@
 # googly-eyes
 
-[Live demo](9bnxw.csb.app/)
+Fun with googly eyes!
+
+[Live demo](https://9bnxw.csb.app/)
