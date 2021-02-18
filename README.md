@@ -2,6 +2,6 @@
 
 Fun with googly eyes!
 
-[Live demo](https://9bnxw.csb.app/)
+[Live demo](https://googly-eyes.netlify.app/)
 
 ![sample image](sample.png)
