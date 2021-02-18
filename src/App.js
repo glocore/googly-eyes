@@ -9,11 +9,16 @@ import { useEventListener } from "./hooks";
 import "./styles.css";
 
 export default function App() {
+  const [eyes, setEyes] = React.useState([
+    {
+      left: "calc(50% - 50px)",
+      top: "calc(50% - 50px)"
+    }
+  ]);
   const [mouseCoordinates, setMouseCoordinates] = React.useState({
     x: 0,
     y: 0
   });
-  const eyesRef = React.useRef();
 
   const handler = React.useCallback(
     ({ clientX, clientY }) => {
@@ -22,7 +27,40 @@ export default function App() {
     [setMouseCoordinates]
   );
 
+  const clickHandler = React.useCallback(
+    ({ clientX, clientY }) => {
+      setEyes(
+        eyes.concat({
+          left: `calc(${clientX}px - 50px)`,
+          top: `calc(${clientY}px - 25px)`
+        })
+      );
+    },
+    [eyes]
+  );
+
+  const reset = () => {
+    setEyes([]);
+  };
+
   useEventListener("mousemove", handler);
+  useEventListener("mousedown", clickHandler);
+
+  return (
+    <div className="mouse-area">
+      {eyes.map((eye, index) => (
+        <Eyes mouseCoordinates={mouseCoordinates} style={eye} key={index} />
+      ))}
+      <span className="background-text">Click to add googly eyes!</span>
+      <button className="clear-button" onClick={reset}>
+        CLEAR
+      </button>
+    </div>
+  );
+}
+
+const Eyes = ({ mouseCoordinates, ...rest }) => {
+  const eyesRef = React.useRef();
 
   const getEyeStyle = () => {
     if (eyesRef.current) {
@@ -41,11 +79,9 @@ export default function App() {
   };
 
   return (
-    <div className="mouse-area">
-      <div ref={eyesRef} className="eyes">
-        <div className="eye" style={getEyeStyle()} />
-        <div className="eye" style={getEyeStyle()} />
-      </div>
+    <div ref={eyesRef} className="eyes" {...rest}>
+      <div className="eye" style={getEyeStyle()} />
+      <div className="eye" style={getEyeStyle()} />
     </div>
   );
-}
+};
